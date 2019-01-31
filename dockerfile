@@ -8,5 +8,7 @@ RUN npm install
 RUN npm install -g pm2
 #앱 포트 설정
 EXPOSE 5000
-CMD pm2 start bin/www
+RUN npm install Unitech/pm2#development -g
+CMD [ 'pm2-runtime', 'app.js' ]
+#CMD pm2 start bin/www
 #CMD ["/bin/bash"]
