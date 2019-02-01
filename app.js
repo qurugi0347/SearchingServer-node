@@ -6,10 +6,6 @@ const bodyParser  = require('body-parser');
 const mongoose    = require('mongoose');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const goodsRouter = require('./routes/goods');
-
 const app = express();
 
 app.use(logger('dev'));
@@ -20,26 +16,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/goods', goodsRouter);
-//
+
+//DB
+require('./models/goods');
 const db = mongoose.connection;
 db.on('error', console.error);
-db.once('open', function(){
+db.once('open', ()=>{
     // CONNECTED TO MONGODB SERVER
     console.log("Connected to mongod server");
 });
+mongoose.connect('mongodb://localhost:27017/bubbly');
+//Router
 
-mongoose.connect('mongodb://localhost/mongodb_tutorial');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const goodsRouter = require('./routes/goods');
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/goods', goodsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
