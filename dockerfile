@@ -11,6 +11,6 @@ EXPOSE 5000
 RUN npm install Unitech/pm2#development -g
 
 #배포용
-CMD pm2-runtime bin/www
+CMD pm2-runtime -i 0 bin/www
 #개발용
 #CMD ["/bin/bash"]
