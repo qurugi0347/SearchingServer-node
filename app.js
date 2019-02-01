@@ -25,7 +25,7 @@ db.once('open', ()=>{
     // CONNECTED TO MONGODB SERVER
     console.log("Connected to mongod server");
 });
-mongoose.connect('mongodb://localhost:27017/bubbly');
+mongoose.connect('mongodb://localhost:27027/bubbly');
 //Router
 
 const indexRouter = require('./routes/index');
