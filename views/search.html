@@ -70,7 +70,7 @@ $(document).ready(function(){
       $.getJSON('./goods/search/'+searchField, function(data){
         $('#result').empty();
         $.each(data, function(key, value){
-          $('#result').append('<li class="list-group-item> ' +value.name+ '</li>');
+          $('#result')[0].append('<li class="list-group-item> ' +value.name+ '</li>');
         });
       });
     }else{
