@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JQuery Ajax - Bootstrap - NodeJS/Express - MySQL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/static/js/getrequest.js"></script>
+	<script src="/static/js/postrequest.js"></script>
+
+	<style>
+	#result {
+		position: absolute;
+		width: 100%;
+		max-width: 870px;
+		cursor: pointer;
+		overflow-y: auto;
+		box-sizing: border-box;
+		z-index: 1001;
+	}
+	.link-class:hover{
+		background-color: #f1f1f1;
+	}
+	</style>
+</head>
+
+<body>
+<div class="container">
+<div class="col-sm-4">
+	<h3>NodeJS/Express Post/Get Ajax</h3>
+	<div>
+		<form id="userForm">
+		  <div class="form-group">
+			<label for="firstname">FirstName:</label>
+			<input type="text" class="form-control" id="firstname" placeholder="Enter FirstName"/>
+		  </div>
+		  <div class="form-group">
+			<label for="lastname">LastName:</label>
+			<input type="text" class="form-control" id="lastname" placeholder="Enter LastName"/>
+		  </div>
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+	<div id="postResultDiv">
+	</div>
+	<br>
+	<div>
+		<button id="allUsers" type="button" class="btn btn-default">Users</button>
+		<div id="getResultDiv">
+	        <ul class="list-group">
+	    	</ul>
+    	</div>
+	</div>
+
+	<div align="center">
+		<input type="text" name="search" id="search" placeholder="Search Employee Details" class="form-control" />
+	</div>
+	<ul calss="list-group" id="result"></ul>
+</div>
+</div>
+</body>
+</html>
+
+<script src="../app/config/mongodb.config.js">
+
+</script>
+<script>
+
+$(document).ready(function(){
+	$('#search').keyup(function(){
+		//var searchField = $('#search').val();
+		//var expression = new RegExp(searchField, "i");
+		console.log("keyup");
+		$.getJSON('http://localhost:5000/goods', function(data){
+      console.log(data);
+			$.each(data, function(key, value){
+				console.log(value);
+				if(value.name.search(expression) != -1 || value.seller.search(expression != -1)){
+					$('#result').append('<li class="list-group-item> ' +value.name+ '</li>');
+				}
+			});
+		});
+	});
+});
+</script>
